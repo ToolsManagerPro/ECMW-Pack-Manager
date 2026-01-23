@@ -1,0 +1,5 @@
+{
+  "name": "ECMW Global Pack Manager",
+  "description": "A high-performance React dashboard for managing global pack configurations with advanced filtering, real-time statistics, and data persistence.",
+  "requestFramePermissions": []
+}
