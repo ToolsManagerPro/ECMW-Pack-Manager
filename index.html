@@ -27,12 +27,9 @@
     <script type="text/babel" data-presets="typescript,react" data-type="module">
         import React from 'react';
         import { createRoot } from 'react-dom/client';
-        // IMPORTANT: We import your local file here
-        import App from './App.tsx'; 
-
-        const container = document.getElementById('root');
-        const root = createRoot(container);
-        root.render(<App />);
+        // By importing index.tsx here, Babel will follow the chain 
+        // of all your other files (App.tsx, etc.) automatically.
+        import './index.tsx'; 
     </script>
 </body>
 </html>
