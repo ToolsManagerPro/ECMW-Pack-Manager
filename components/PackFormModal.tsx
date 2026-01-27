@@ -1,7 +1,8 @@
-
 import React, { useState, useEffect } from 'react';
-import { Pack } from '../types';
-import { ENTITY_OPTIONS, PLATFORM_OPTIONS, TEAM_OPTIONS, STATUS_OPTIONS, LOCATION_OPTIONS } from '../constants';
+// FIX: Added .ts extension
+import { Pack } from '../types.ts';
+// FIX: Added .ts extension
+import { ENTITY_OPTIONS, PLATFORM_OPTIONS, TEAM_OPTIONS, STATUS_OPTIONS, LOCATION_OPTIONS } from '../constants.ts';
 
 interface PackFormModalProps {
   isOpen: boolean;
