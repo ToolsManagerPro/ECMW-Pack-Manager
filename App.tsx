@@ -1,10 +1,10 @@
-
 import React, { useState, useMemo, useEffect } from 'react';
-import { Pack, SortConfig, FilterState } from './types';
-import { INITIAL_DATA, ENTITY_OPTIONS, STATUS_OPTIONS, PLATFORM_OPTIONS, TEAM_OPTIONS, LOCATION_OPTIONS } from './constants';
-import { exportToCSV, generateId, getStatusBadgeClass } from './utils/helpers';
-import StatsCards from './components/StatsCards';
-import PackFormModal from './components/PackFormModal';
+// FIX: Added .ts and .tsx extensions to all local imports
+import { Pack, SortConfig, FilterState } from './types.ts';
+import { INITIAL_DATA, ENTITY_OPTIONS, STATUS_OPTIONS, PLATFORM_OPTIONS, TEAM_OPTIONS, LOCATION_OPTIONS } from './constants.ts';
+import { exportToCSV, generateId, getStatusBadgeClass } from './utils/helpers.ts';
+import StatsCards from './components/StatsCards.tsx';
+import PackFormModal from './components/PackFormModal.tsx';
 
 const App: React.FC = () => {
   const [packs, setPacks] = useState<Pack[]>(() => {
