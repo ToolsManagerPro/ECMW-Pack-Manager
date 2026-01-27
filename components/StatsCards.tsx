@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Pack } from '../types';
+import { Pack } from '../types.ts';
 
 interface StatsCardsProps {
   packs: Pack[];
