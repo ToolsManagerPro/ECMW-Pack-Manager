@@ -21,12 +21,28 @@
 
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
-<body class="bg-slate-50 text-slate-900">
-    <div id="root"></div>
+<body class="bg-slate-50">
+    <div id="root">
+        <div class="flex items-center justify-center min-h-screen">
+            <p class="text-slate-400 animate-pulse">Initializing ECMW Systems...</p>
+        </div>
+    </div>
 
-   <script type="text/babel" data-presets="typescript,react" data-type="module">
-    import './index.tsx';
-</script>
+    <script type="text/babel" data-presets="typescript,react" data-type="module">
+        import React from 'react';
+        import { createRoot } from 'react-dom/client';
+        import App from './App.tsx';
+
+        console.log("Babel check: App is loading..."); // Check your console for this!
+        
+        try {
+            const container = document.getElementById('root');
+            const root = createRoot(container);
+            root.render(<App />);
+            console.log("React check: Rendered successfully");
+        } catch (err) {
+            console.error("Startup Error:", err);
+        }
     </script>
 </body>
 </html>
