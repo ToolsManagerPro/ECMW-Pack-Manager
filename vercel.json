@@ -3,10 +3,7 @@
     {
       "source": "/(.*)\\.(ts|tsx)",
       "headers": [
-        {
-          "key": "Content-Type",
-          "value": "application/javascript"
-        }
+        { "key": "Content-Type", "value": "application/javascript" }
       ]
     }
   ],
