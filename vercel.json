@@ -3,18 +3,10 @@
   "headers": [
     {
       "source": "/(.*).(ts|tsx)",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "application/javascript"
-        }
-      ]
+      "headers": [{ "key": "Content-Type", "value": "application/javascript" }]
     }
   ],
   "rewrites": [
-    {
-      "source": "/((?!api/|.*\\..*).*)",
-      "destination": "/index.html"
-    }
+    { "source": "/((?!api/|.*\\..*).*)", "destination": "/index.html" }
   ]
 }
