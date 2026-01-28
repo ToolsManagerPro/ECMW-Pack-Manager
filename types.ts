@@ -1,31 +1,20 @@
-
 export interface Pack {
   id: string;
   entity: string;
   entityProd: string;
   platform: string;
   team: string;
-  localExternal: 'Local' | 'External' | string;
+  localExternal: string;
   pack: string;
-  dataSeeds: 'oui' | 'non' | string;
   server: string;
-  disk: string;
   rdps: string;
-  password: string;
+  password?: string;
+  countProfiles: number | string;
   interval: string;
-  browser: string;
   status: string;
-  countProfiles: string | number;
-  totalSeedsOk: string;
+  notes?: string;
+  dataSeeds: string;
   backup: string;
-  notes: string;
-}
-
-export type SortDirection = 'asc' | 'desc';
-
-export interface SortConfig {
-  key: keyof Pack;
-  direction: SortDirection;
 }
 
 export interface FilterState {
@@ -35,4 +24,9 @@ export interface FilterState {
   platform: string;
   localExternal: string;
   team: string;
+}
+
+export interface SortConfig {
+  key: keyof Pack;
+  direction: 'asc' | 'desc';
 }
