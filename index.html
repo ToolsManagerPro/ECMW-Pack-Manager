@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ECMW Global Pack Manager</title>
-    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <script type="importmap">
     {
       "imports": {
@@ -18,16 +16,16 @@
       }
     }
     </script>
-
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
-<body class="bg-slate-50">
+<body class="bg-slate-50 text-slate-900">
     <div id="root">
         <div class="flex items-center justify-center min-h-screen">
-            <p class="text-slate-400 animate-pulse">Initializing ECMW Systems...</p>
+            <p class="text-slate-400 animate-pulse font-sans">Initializing ECMW Systems...</p>
         </div>
     </div>
-
-    If NO (it's right next to index.html): Then ./App.tsx is correct.
+    <script type="text/babel" data-presets="typescript,react" data-type="module">
+        import './index.tsx';
+    </script>
 </body>
 </html>
