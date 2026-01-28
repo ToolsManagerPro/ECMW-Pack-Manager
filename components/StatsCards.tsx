@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Pack } from '../types.ts';
 
@@ -7,56 +6,30 @@ interface StatsCardsProps {
 }
 
 const StatsCards: React.FC<StatsCardsProps> = ({ packs }) => {
-  const totalPacks = packs.length;
-  const totalProfiles = packs.reduce((acc, curr) => acc + (Number(curr.countProfiles) || 0), 0);
-  const reportingPacks = packs.filter(p => p.status.toLowerCase().includes('repot')).length;
-  const localPacks = packs.filter(p => p.localExternal === 'Local').length;
+  const totalProfiles = packs.reduce((acc, p) => acc + Number(p.countProfiles || 0), 0);
+  const activePacks = packs.filter(p => p.status.toLowerCase().includes('repot') || p.status.toLowerCase().includes('active')).length;
+  const errorPacks = packs.filter(p => p.status.toLowerCase().includes('error') || p.status.toLowerCase().includes('down')).length;
+
+  const stats = [
+    { label: 'Total Packs', value: packs.length, icon: 'fa-box', color: 'text-blue-600', bg: 'bg-blue-50' },
+    { label: 'Total Profiles', value: totalProfiles.toLocaleString(), icon: 'fa-users', color: 'text-purple-600', bg: 'bg-purple-50' },
+    { label: 'Active/Reporting', value: activePacks, icon: 'fa-check-circle', color: 'text-emerald-600', bg: 'bg-emerald-50' },
+    { label: 'Issues/Down', value: errorPacks, icon: 'fa-exclamation-triangle', color: 'text-rose-600', bg: 'bg-rose-50' }
+  ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-      <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-slate-500 text-sm font-medium">Total Packs</span>
-          <div className="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600">
-            <i className="fas fa-boxes"></i>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {stats.map((stat, i) => (
+        <div key={i} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-5">
+          <div className={`w-12 h-12 ${stat.bg} ${stat.color} rounded-xl flex items-center justify-center text-xl`}>
+            <i className={`fas ${stat.icon}`}></i>
+          </div>
+          <div>
+            <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">{stat.label}</p>
+            <p className="text-2xl font-black text-slate-800">{stat.value}</p>
           </div>
         </div>
-        <div className="text-2xl font-bold text-slate-900">{totalPacks}</div>
-        <div className="mt-1 text-xs text-slate-400">Total configured instances</div>
-      </div>
-
-      <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-slate-500 text-sm font-medium">Total Profiles</span>
-          <div className="w-8 h-8 bg-emerald-50 rounded-lg flex items-center justify-center text-emerald-600">
-            <i className="fas fa-users"></i>
-          </div>
-        </div>
-        <div className="text-2xl font-bold text-slate-900">{totalProfiles.toLocaleString()}</div>
-        <div className="mt-1 text-xs text-emerald-500 font-medium">Aggregated profile count</div>
-      </div>
-
-      <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-slate-500 text-sm font-medium">Active Reporting</span>
-          <div className="w-8 h-8 bg-indigo-50 rounded-lg flex items-center justify-center text-indigo-600">
-            <i className="fas fa-chart-line"></i>
-          </div>
-        </div>
-        <div className="text-2xl font-bold text-slate-900">{reportingPacks}</div>
-        <div className="mt-1 text-xs text-indigo-500 font-medium">{Math.round((reportingPacks/totalPacks)*100 || 0)}% of fleet active</div>
-      </div>
-
-      <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-slate-500 text-sm font-medium">Local vs External</span>
-          <div className="w-8 h-8 bg-amber-50 rounded-lg flex items-center justify-center text-amber-600">
-            <i className="fas fa-server"></i>
-          </div>
-        </div>
-        <div className="text-2xl font-bold text-slate-900">{localPacks} / {totalPacks - localPacks}</div>
-        <div className="mt-1 text-xs text-slate-400">Distribution by hosting type</div>
-      </div>
+      ))}
     </div>
   );
 };
