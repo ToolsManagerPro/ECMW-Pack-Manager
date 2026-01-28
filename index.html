@@ -29,20 +29,10 @@
     </div>
 
     <script type="text/babel" data-presets="typescript,react" data-type="module">
-        import React from 'react';
-        import { createRoot } from 'react-dom/client';
-        import App from './App.tsx';
-
-        console.log("Babel check: App is loading..."); // Check your console for this!
-        
-        try {
-            const container = document.getElementById('root');
-            const root = createRoot(container);
-            root.render(<App />);
-            console.log("React check: Rendered successfully");
-        } catch (err) {
-            console.error("Startup Error:", err);
-        }
-    </script>
+    // This starts the chain. index.tsx imports App.tsx, which imports everything else.
+    import './index.tsx'; 
+    
+    console.log("Entry point index.tsx triggered.");
+</script>
 </body>
 </html>
