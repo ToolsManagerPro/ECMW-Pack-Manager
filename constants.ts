@@ -1,5 +1,5 @@
-
-import { Pack } from './types';
+// Important: Added the .ts extension for the browser environment
+import { Pack } from './types.ts';
 
 export const INITIAL_DATA: Pack[] = [
     {"id":"1","entity":"ECM4","entityProd":"ECM4","platform":"ECM_APP","team":"A","localExternal":"External","pack":"Pack1","dataSeeds":"oui","server":"194.163.144.27","disk":"externe","rdps":"repo","password":"LABO@0000","interval":"1-3999","browser":"Chrome","status":"Repoting","countProfiles":"3999","backup":"Non","totalSeedsOk":"","notes":""},
