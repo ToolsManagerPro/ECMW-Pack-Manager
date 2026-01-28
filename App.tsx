@@ -1,8 +1,9 @@
 import React, { useState, useMemo, useEffect } from 'react';
 // FIX: Added .ts and .tsx extensions to all local imports
-import { Pack, SortConfig, FilterState } from './types.ts';
-import { INITIAL_DATA, ENTITY_OPTIONS, STATUS_OPTIONS, PLATFORM_OPTIONS, TEAM_OPTIONS, LOCATION_OPTIONS } from './constants.ts';
-import { exportToCSV, generateId, getStatusBadgeClass } from './utils/helpers.ts';
+// Ensure these look EXACTLY like this (with the dots and extensions)
+import { Pack } from './types.ts';
+import { INITIAL_DATA } from './constants.ts';
+import { exportToCSV } from './utils/helpers.ts';
 import StatsCards from './components/StatsCards.tsx';
 import PackFormModal from './components/PackFormModal.tsx';
 
