@@ -1,144 +1,60 @@
 import React, { useState, useEffect } from 'react';
-// Note the double dots (..) to go up one folder
 import { Pack } from '../types.ts';
-import { ENTITY_OPTIONS } from '../constants.ts';
+import { ENTITY_OPTIONS, STATUS_OPTIONS, PLATFORM_OPTIONS, TEAM_OPTIONS, LOCATION_OPTIONS } from '../constants.ts';
 
-interface PackFormModalProps {
+interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: (pack: Pack) => void;
-  initialData?: Pack | null;
+  initialData: Pack | null;
 }
 
-const PackFormModal: React.FC<PackFormModalProps> = ({ isOpen, onClose, onSubmit, initialData }) => {
+const PackFormModal: React.FC<ModalProps> = ({ isOpen, onClose, onSubmit, initialData }) => {
   const [formData, setFormData] = useState<Partial<Pack>>({});
 
   useEffect(() => {
-    if (initialData) {
-      setFormData(initialData);
-    } else {
-      setFormData({
-        entity: ENTITY_OPTIONS[0],
-        platform: PLATFORM_OPTIONS[0],
-        team: TEAM_OPTIONS[0],
-        localExternal: LOCATION_OPTIONS[0],
-        status: STATUS_OPTIONS[0],
-        dataSeeds: 'non',
-        backup: 'Non'
-      });
-    }
+    if (initialData) setFormData(initialData);
+    else setFormData({ status: 'Reporting', platform: 'ECM_APP', team: 'A', localExternal: 'Local' });
   }, [initialData, isOpen]);
 
   if (!isOpen) return null;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSubmit(formData as Pack);
-    onClose();
-  };
-
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col">
-        <div className="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
-          <h2 className="text-xl font-bold text-slate-800">
-            {initialData ? 'Edit Pack Configuration' : 'Add New Pack Configuration'}
-          </h2>
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-600 transition-colors">
-            <i className="fas fa-times text-xl"></i>
-          </button>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+        <div className="p-6 border-b sticky top-0 bg-white z-10 flex justify-between items-center">
+          <h2 className="text-xl font-bold">{initialData ? 'Edit Pack' : 'Add New Pack'}</h2>
+          <button onClick={onClose} className="text-slate-400 hover:text-slate-600"><i className="fas fa-times"></i></button>
         </div>
-
-        <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-1">Entity</label>
-              <select name="entity" value={formData.entity} onChange={handleChange} className="w-full rounded-lg border-slate-200 focus:ring-blue-500 focus:border-blue-500 text-sm py-2">
-                {ENTITY_OPTIONS.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-1">Entity Prod</label>
-              <input type="text" name="entityProd" value={formData.entityProd || ''} onChange={handleChange} className="w-full rounded-lg border-slate-200 text-sm py-2" required />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-1">Platform</label>
-              <select name="platform" value={formData.platform} onChange={handleChange} className="w-full rounded-lg border-slate-200 text-sm py-2">
-                {PLATFORM_OPTIONS.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-              </select>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-1">Team</label>
-              <select name="team" value={formData.team} onChange={handleChange} className="w-full rounded-lg border-slate-200 text-sm py-2">
-                {TEAM_OPTIONS.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-1">Location</label>
-              <select name="localExternal" value={formData.localExternal} onChange={handleChange} className="w-full rounded-lg border-slate-200 text-sm py-2">
-                {LOCATION_OPTIONS.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-1">Pack Name</label>
-              <input type="text" name="pack" value={formData.pack || ''} onChange={handleChange} className="w-full rounded-lg border-slate-200 text-sm py-2" required />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-1">Server IP/Name</label>
-              <input type="text" name="server" value={formData.server || ''} onChange={handleChange} className="w-full rounded-lg border-slate-200 text-sm py-2" />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-1">RDPS Session</label>
-              <input type="text" name="rdps" value={formData.rdps || ''} onChange={handleChange} className="w-full rounded-lg border-slate-200 text-sm py-2" />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-1">Password</label>
-              <input type="text" name="password" value={formData.password || ''} onChange={handleChange} className="w-full rounded-lg border-slate-200 text-sm py-2" />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-1">Profiles Count</label>
-              <input type="number" name="countProfiles" value={formData.countProfiles || ''} onChange={handleChange} className="w-full rounded-lg border-slate-200 text-sm py-2" />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-1">Interval</label>
-              <input type="text" name="interval" value={formData.interval || ''} onChange={handleChange} className="w-full rounded-lg border-slate-200 text-sm py-2" />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-1">Status</label>
-              <select name="status" value={formData.status} onChange={handleChange} className="w-full rounded-lg border-slate-200 text-sm py-2">
-                {STATUS_OPTIONS.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-              </select>
-            </div>
-          </div>
-
+        <form className="p-6 grid grid-cols-1 md:grid-cols-2 gap-4" onSubmit={(e) => {
+          e.preventDefault();
+          onSubmit(formData as Pack);
+          onClose();
+        }}>
           <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-1">Notes</label>
-            <textarea name="notes" value={formData.notes || ''} onChange={handleChange} rows={3} className="w-full rounded-lg border-slate-200 text-sm py-2" placeholder="Internal comments..."></textarea>
+            <label className="block text-xs font-bold mb-1">Entity</label>
+            <select className="w-full p-2 border rounded-lg" value={formData.entity || ''} onChange={e => setFormData({...formData, entity: e.target.value})}>
+              <option value="">Select Entity</option>
+              {ENTITY_OPTIONS.map(o => <option key={o} value={o}>{o}</option>)}
+            </select>
+          </div>
+          <div>
+            <label className="block text-xs font-bold mb-1">Pack Name</label>
+            <input type="text" className="w-full p-2 border rounded-lg" value={formData.pack || ''} onChange={e => setFormData({...formData, pack: e.target.value})} />
+          </div>
+          <div>
+            <label className="block text-xs font-bold mb-1">Server IP</label>
+            <input type="text" className="w-full p-2 border rounded-lg" value={formData.server || ''} onChange={e => setFormData({...formData, server: e.target.value})} />
+          </div>
+          <div>
+            <label className="block text-xs font-bold mb-1">Profile Count</label>
+            <input type="number" className="w-full p-2 border rounded-lg" value={formData.countProfiles || ''} onChange={e => setFormData({...formData, countProfiles: e.target.value})} />
+          </div>
+          <div className="md:col-span-2 mt-4 flex gap-3">
+            <button type="submit" className="flex-1 py-3 bg-blue-600 text-white rounded-xl font-bold">Save Configuration</button>
+            <button type="button" onClick={onClose} className="flex-1 py-3 bg-slate-100 text-slate-600 rounded-xl font-bold">Cancel</button>
           </div>
         </form>
-
-        <div className="px-6 py-4 border-t border-slate-100 bg-slate-50 flex justify-end gap-3">
-          <button onClick={onClose} type="button" className="px-4 py-2 text-sm font-medium text-slate-600 hover:bg-slate-200 rounded-lg transition-colors">
-            Cancel
-          </button>
-          <button onClick={handleSubmit} type="submit" className="px-6 py-2 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-md transition-all active:scale-95">
-            {initialData ? 'Save Changes' : 'Create Pack'}
-          </button>
-        </div>
       </div>
     </div>
   );
