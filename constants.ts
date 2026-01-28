@@ -1,4 +1,3 @@
-// Important: Added the .ts extension for the browser environment
 import { Pack } from './types.ts';
 
 export const INITIAL_DATA: Pack[] = [
@@ -22,10 +21,7 @@ export const INITIAL_DATA: Pack[] = [
     {"id":"80","entity":"ECM10","entityProd":"ECM2","platform":"ECM_APP","team":"B","localExternal":"External","pack":"Pack80","dataSeeds":"non","server":"70.36.107.56","disk":"externe","rdps":"admin","password":"ECM2_uC84","interval":"1---6000","browser":"Chrome","status":"ADD contact","countProfiles":"5751","backup":"Non","totalSeedsOk":"","notes":""}
 ];
 
-export const STATUS_OPTIONS = [
-    "Repo IPs", "Verification", "ADD contact", "Repoting", "EMPTY", "LOGING", "Hold", "DOWN"
-];
-
+export const STATUS_OPTIONS = ["Repo IPs", "Verification", "ADD contact", "Repoting", "EMPTY", "LOGING", "Hold", "DOWN"];
 export const ENTITY_OPTIONS = ["ECM4", "ECM7", "ECM10"];
 export const PLATFORM_OPTIONS = ["ECM_APP", "iMACROS"];
 export const TEAM_OPTIONS = ["A", "B", "C", "Empty"];
