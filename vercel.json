@@ -12,6 +12,9 @@
     }
   ],
   "rewrites": [
-    { "source": "/(.*)", "destination": "/" }
+    {
+      "source": "/((?!.*\\.(?:ts|tsx|js|css|json|png|svg)).*)",
+      "destination": "/index.html"
+    }
   ]
 }
