@@ -16,14 +16,15 @@
       }
     }
     </script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-</head>
-<body class="bg-slate-50 text-slate-900">
-    <div id="root">
-        <div class="flex items-center justify-center min-h-screen">
-            <p class="text-slate-400 animate-pulse font-sans">Initializing ECMW Systems...</p>
-        </div>
-    </div>
+   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<script type="text/babel" data-presets="react,typescript" src="./types.ts"></script>
+<script type="text/babel" data-presets="react,typescript" src="./constants.ts"></script>
+<script type="text/babel" data-presets="react,typescript" src="./utils/helpers.ts"></script>
+<script type="text/babel" data-presets="react,typescript" src="./components/StatsCards.tsx"></script>
+<script type="text/babel" data-presets="react,typescript" src="./components/PackFormModal.tsx"></script>
+<script type="text/babel" data-presets="react,typescript" src="./App.tsx"></script>
+<script type="text/babel" data-presets="react,typescript" src="./index.tsx"></script>
     <script type="text/babel" data-presets="typescript,react" data-type="module">
         import './index.tsx';
     </script>
