@@ -1,20 +1,8 @@
 
-export const INITIAL_DATA = [
+[
     {"id":"1","entity":"ECM4","entityProd":"ECM4","platform":"ECM_APP","team":"A","localExternal":"External","pack":"Pack1","dataSeeds":"oui","server":"194.163.144.27","disk":"externe","rdps":"repo","password":"LABO@0000","interval":"1-3999","browser":"Chrome","status":"Repoting","countProfiles":"3999","backup":"Non","totalSeedsOk":"","notes":""},
     {"id":"2","entity":"ECM4","entityProd":"ECM4","platform":"ECM_APP","team":"A","localExternal":"External","pack":"Pack2","dataSeeds":"oui","server":"185.216.75.117","disk":"externe","rdps":"repo","password":"LABO@0000","interval":"1-5000","browser":"Chrome","status":"Repo IPs","countProfiles":"5000","backup":"Non","totalSeedsOk":"","notes":""},
     {"id":"3","entity":"ECM4","entityProd":"ECM4","platform":"ECM_APP","team":"A","localExternal":"External","pack":"Pack3","dataSeeds":"non","server":"66.94.120.85","disk":"externe","rdps":"repo","password":"LABO@0000","interval":"1-3078","browser":"Chrome","status":"Repo IPs","countProfiles":"3078","backup":"Non","totalSeedsOk":"","notes":""},
     {"id":"4","entity":"ECM4","entityProd":"ECM4","platform":"ECM_APP","team":"A","localExternal":"External","pack":"Pack4","dataSeeds":"oui","server":"194.163.130.102","disk":"externe","rdps":"repo","password":"LABO@0000","interval":"1-3000","browser":"Chrome","status":"Repoting","countProfiles":"3000","backup":"Non","totalSeedsOk":"","notes":""},
     {"id":"5","entity":"ECM4","entityProd":"ECM4","platform":"ECM_APP","team":"A","localExternal":"Local","pack":"Pack5","dataSeeds":"non","server":"4","disk":"E","rdps":"ECM4_Gmail_1","password":"Password@1.","interval":"1-5000","browser":"Chrome","status":"Repoting","countProfiles":"3746","backup":"Non","totalSeedsOk":"","notes":""}
-];
-
-export const STATUS_OPTIONS = [
-    "Repo IPs", "Verification", "ADD contact", "Repoting", "EMPTY", "LOGING", "Hold", "DOWN", "Reporting Offer"
-];
-
-export const ENTITY_OPTIONS = ["ECM4", "ECM7", "ECM10"];
-export const PLATFORM_OPTIONS = ["ECM_APP", "iMACROS", "WebautoMate"];
-export const TEAM_OPTIONS = ["A", "B", "C", "Empty"];
-export const LOCATION_OPTIONS = ["Local", "External"];
-export const DISK_OPTIONS = ["E", "G", "F", "H", "I", "D", "STK1", "externe"];
-export const DATA_SEEDS_OPTIONS = ["oui", "non"];
-export const BROWSER_OPTIONS = ["Chrome", "Chromium", "webview", "palemoon", "Brave"];
+]

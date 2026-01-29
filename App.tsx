@@ -1,12 +1,13 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
-import { INITIAL_DATA, ENTITY_OPTIONS, STATUS_OPTIONS, PLATFORM_OPTIONS, TEAM_OPTIONS, LOCATION_OPTIONS, DISK_OPTIONS, DATA_SEEDS_OPTIONS } from './constants.js';
-import { exportToCSV, generateId, getStatusBadgeClass } from './utils/helpers.js';
-import StatsCards from './components/StatsCards.js';
-import PackFormModal from './components/PackFormModal.js';
+import { Pack, SortConfig, FilterState } from './types';
+import { INITIAL_DATA, ENTITY_OPTIONS, STATUS_OPTIONS, PLATFORM_OPTIONS, TEAM_OPTIONS, LOCATION_OPTIONS, DISK_OPTIONS, DATA_SEEDS_OPTIONS } from './constants';
+import { exportToCSV, generateId, getStatusBadgeClass } from './utils/helpers';
+import StatsCards from './components/StatsCards';
+import PackFormModal from './components/PackFormModal';
 
-const App = () => {
-  const [packs, setPacks] = useState(() => {
+const App: React.FC = () => {
+  const [packs, setPacks] = useState<Pack[]>(() => {
     const saved = localStorage.getItem('ecmw_packs');
     if (saved) {
       try {
@@ -19,7 +20,7 @@ const App = () => {
     return INITIAL_DATA;
   });
 
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<FilterState>({
     search: '',
     entity: '',
     status: '',
@@ -30,10 +31,10 @@ const App = () => {
     dataSeeds: ''
   });
 
-  const [sortConfig, setSortConfig] = useState({ key: 'pack', direction: 'asc' });
+  const [sortConfig, setSortConfig] = useState<SortConfig>({ key: 'pack', direction: 'asc' });
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingPack, setEditingPack] = useState(null);
-  const [expandedPackId, setExpandedPackId] = useState(null);
+  const [editingPack, setEditingPack] = useState<Pack | null>(null);
+  const [expandedPackId, setExpandedPackId] = useState<string | null>(null);
 
   useEffect(() => {
     localStorage.setItem('ecmw_packs', JSON.stringify(packs));
@@ -76,29 +77,29 @@ const App = () => {
     return result;
   }, [packs, filters, sortConfig]);
 
-  const handleSort = (key) => {
+  const handleSort = (key: keyof Pack) => {
     setSortConfig(prev => ({
       key,
       direction: prev.key === key && prev.direction === 'asc' ? 'desc' : 'asc'
     }));
   };
 
-  const handleAddPack = (newPack) => {
+  const handleAddPack = (newPack: Pack) => {
     const packWithId = { ...newPack, id: generateId() };
     setPacks(prev => [packWithId, ...prev]);
   };
 
-  const handleUpdatePack = (updatedPack) => {
+  const handleUpdatePack = (updatedPack: Pack) => {
     setPacks(prev => prev.map(p => p.id === updatedPack.id ? updatedPack : p));
   };
 
-  const handleDeletePack = (id) => {
+  const handleDeletePack = (id: string) => {
     if (window.confirm('Are you sure you want to delete this pack configuration?')) {
       setPacks(prev => prev.filter(p => p.id !== id));
     }
   };
 
-  const toggleExpand = (id) => {
+  const toggleExpand = (id: string) => {
     setExpandedPackId(expandedPackId === id ? null : id);
   };
 
@@ -123,6 +124,7 @@ const App = () => {
 
   return (
     <div className="min-h-screen pb-12 bg-slate-50">
+      {/* Navbar */}
       <nav className="bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between sticky top-0 z-40 shadow-sm">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-200">
@@ -135,21 +137,32 @@ const App = () => {
         </div>
         
         <div className="flex items-center gap-4">
-          <button onClick={handleRestoreDefault} className="hidden lg:flex items-center gap-2 px-4 py-2 text-slate-400 hover:text-slate-600 hover:bg-slate-50 rounded-lg transition-all font-semibold text-xs">
+          <button 
+            onClick={handleRestoreDefault}
+            className="hidden lg:flex items-center gap-2 px-4 py-2 text-slate-400 hover:text-slate-600 hover:bg-slate-50 rounded-lg transition-all font-semibold text-xs"
+          >
             <i className="fas fa-sync-alt"></i> Restore Defaults
           </button>
-          <button onClick={() => exportToCSV(filteredPacks)} className="hidden md:flex items-center gap-2 px-4 py-2 text-slate-600 hover:text-slate-800 hover:bg-slate-100 rounded-lg transition-all font-semibold text-sm">
+          <button 
+            onClick={() => exportToCSV(filteredPacks)}
+            className="hidden md:flex items-center gap-2 px-4 py-2 text-slate-600 hover:text-slate-800 hover:bg-slate-100 rounded-lg transition-all font-semibold text-sm"
+          >
             <i className="fas fa-download"></i> Export CSV
           </button>
-          <button onClick={() => { setEditingPack(null); setIsModalOpen(true); }} className="flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl shadow-lg shadow-blue-100 transition-all active:scale-95 font-bold text-sm">
+          <button 
+            onClick={() => { setEditingPack(null); setIsModalOpen(true); }}
+            className="flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl shadow-lg shadow-blue-100 transition-all active:scale-95 font-bold text-sm"
+          >
             <i className="fas fa-plus"></i> Add Pack
           </button>
         </div>
       </nav>
 
       <main className="container mx-auto px-4 mt-8 max-w-[1700px]">
+        {/* Stats Section */}
         <StatsCards packs={filteredPacks} />
 
+        {/* Filters & Controls */}
         <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 mb-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end">
             <div className="lg:col-span-3 relative">
@@ -225,17 +238,26 @@ const App = () => {
           </div>
         </div>
 
+        {/* Data Table */}
         <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
           <div className="overflow-x-auto custom-scrollbar">
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="bg-slate-50/50 border-b border-slate-200">
-                  <th className="px-4 py-4 w-10 text-center"><i className="fas fa-info-circle text-slate-300 text-xs"></i></th>
-                  <th onClick={() => handleSort('pack')} className="px-4 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest cursor-pointer hover:text-blue-600 transition-colors">Asset Instance</th>
+                  <th className="px-4 py-4 w-10 text-center">
+                    <i className="fas fa-info-circle text-slate-300 text-xs"></i>
+                  </th>
+                  <th onClick={() => handleSort('pack')} className="px-4 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest cursor-pointer hover:text-blue-600 transition-colors">
+                    Asset Instance {sortConfig.key === 'pack' && (sortConfig.direction === 'asc' ? '↑' : '↓')}
+                  </th>
                   <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">Environment</th>
                   <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">Access Nodes</th>
-                  <th onClick={() => handleSort('status')} className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest cursor-pointer hover:text-blue-600 transition-colors text-center">System Status</th>
-                  <th onClick={() => handleSort('countProfiles')} className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest cursor-pointer hover:text-blue-600 transition-colors text-center">Count Profile</th>
+                  <th onClick={() => handleSort('status')} className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest cursor-pointer hover:text-blue-600 transition-colors text-center">
+                    System Status
+                  </th>
+                  <th onClick={() => handleSort('countProfiles')} className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest cursor-pointer hover:text-blue-600 transition-colors text-center">
+                    Count Profile
+                  </th>
                   <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">Notes</th>
                   <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right">Actions</th>
                 </tr>
@@ -246,7 +268,10 @@ const App = () => {
                     <React.Fragment key={pack.id}>
                       <tr className={`hover:bg-slate-50/80 transition-colors group ${expandedPackId === pack.id ? 'bg-blue-50/30' : ''}`}>
                         <td className="px-4 py-4 text-center">
-                          <button onClick={() => toggleExpand(pack.id)} className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all ${pack.notes ? 'text-blue-600 bg-blue-50' : 'text-slate-300 hover:bg-slate-100'}`}>
+                          <button 
+                            onClick={() => toggleExpand(pack.id)}
+                            className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all ${pack.notes ? 'text-blue-600 bg-blue-50' : 'text-slate-300 hover:bg-slate-100'}`}
+                          >
                             <i className={`fas fa-chevron-${expandedPackId === pack.id ? 'down' : 'right'} text-[10px]`}></i>
                           </button>
                         </td>
@@ -303,17 +328,31 @@ const App = () => {
                                 <div className="flex-1">
                                   <h4 className="text-[10px] font-black uppercase text-slate-400 tracking-widest mb-1.5">Asset Technical Documentation</h4>
                                   {pack.notes ? (
-                                    <p className="text-sm text-slate-600 whitespace-pre-wrap leading-relaxed max-w-5xl">{pack.notes}</p>
+                                    <p className="text-sm text-slate-600 whitespace-pre-wrap leading-relaxed max-w-5xl">
+                                      {pack.notes}
+                                    </p>
                                   ) : (
                                     <p className="text-sm text-slate-400 italic">No operational logs provided for this instance.</p>
                                   )}
                                 </div>
                               </div>
                               <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-4 border-t border-slate-200/50">
-                                 <div><div className="text-[9px] font-black text-slate-400 uppercase mb-1">Disk Partition</div><div className="text-xs font-bold text-slate-700">{pack.disk || 'N/A'}</div></div>
-                                 <div><div className="text-[9px] font-black text-slate-400 uppercase mb-1">Data Seeds</div><div className="text-xs font-bold text-slate-700 uppercase">{pack.dataSeeds || 'N/A'}</div></div>
-                                 <div><div className="text-[9px] font-black text-slate-400 uppercase mb-1">Browser Node</div><div className="text-xs font-bold text-slate-700">{pack.browser || 'N/A'}</div></div>
-                                 <div><div className="text-[9px] font-black text-slate-400 uppercase mb-1">Access Credential</div><div className="text-xs font-mono font-bold text-blue-600">{pack.password || 'REDACTED'}</div></div>
+                                 <div>
+                                   <div className="text-[9px] font-black text-slate-400 uppercase mb-1">Disk Partition</div>
+                                   <div className="text-xs font-bold text-slate-700">{pack.disk || 'N/A'}</div>
+                                 </div>
+                                 <div>
+                                   <div className="text-[9px] font-black text-slate-400 uppercase mb-1">Data Seeds</div>
+                                   <div className="text-xs font-bold text-slate-700 uppercase">{pack.dataSeeds || 'N/A'}</div>
+                                 </div>
+                                 <div>
+                                   <div className="text-[9px] font-black text-slate-400 uppercase mb-1">Browser Node</div>
+                                   <div className="text-xs font-bold text-slate-700">{pack.browser || 'N/A'}</div>
+                                 </div>
+                                 <div>
+                                   <div className="text-[9px] font-black text-slate-400 uppercase mb-1">Access Credential</div>
+                                   <div className="text-xs font-mono font-bold text-blue-600">{pack.password || 'REDACTED'}</div>
+                                 </div>
                               </div>
                             </div>
                           </td>
@@ -335,12 +374,19 @@ const App = () => {
               </tbody>
             </table>
           </div>
+          
           <div className="bg-slate-50 px-6 py-4 border-t border-slate-100 flex items-center justify-between text-[10px] font-bold text-slate-400 uppercase tracking-widest">
             <p>Fleet Database Registry &bull; Total Assets: {packs.length}</p>
             <p>Filtered View: {filteredPacks.length}</p>
           </div>
         </div>
       </main>
+
+      <footer className="mt-12 text-center text-slate-400 text-xs font-medium border-t border-slate-100 pt-8 pb-12">
+        <p className="mb-1 uppercase tracking-widest font-bold text-[10px]">Infrastructure Management Core</p>
+        <p>&copy; {new Date().getFullYear()} ECMW GLOBAL FLEET SYSTEMS</p>
+      </footer>
+
       <PackFormModal 
         isOpen={isModalOpen}
         onClose={() => { setIsModalOpen(false); setEditingPack(null); }}
