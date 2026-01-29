@@ -1,5 +1,7 @@
 
-import React from 'https://esm.sh/react@18.2.0';
+import React from 'react';
+
+// ... rest of the component code ...
 
 const StatsCards = ({ packs }) => {
   const totalPacks = packs.length;
