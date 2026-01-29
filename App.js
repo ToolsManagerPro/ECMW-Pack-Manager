@@ -1,5 +1,5 @@
 // App.js
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect } from 'https://esm.sh/react@18.2.0';
 import { INITIAL_DATA, ENTITY_OPTIONS, STATUS_OPTIONS, PLATFORM_OPTIONS, TEAM_OPTIONS, LOCATION_OPTIONS, DISK_OPTIONS, DATA_SEEDS_OPTIONS } from './constants.js';
 import { exportToCSV, generateId, getStatusBadgeClass } from './utils/helpers.js';
 import StatsCards from './components/StatsCards.js';
