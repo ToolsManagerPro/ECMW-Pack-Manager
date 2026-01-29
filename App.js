@@ -5,6 +5,13 @@ import { exportToCSV, generateId, getStatusBadgeClass } from './utils/helpers.js
 import StatsCards from './components/StatsCards.js';
 import PackFormModal from './components/PackFormModal.js';
 
+const App = () => {
+    // ... paste your existing App logic here ...
+    // Babel will now handle the "..." and JSX correctly
+};
+
+export default App;
+
 // ... rest of your code ...
 
 // ... rest of your App code remains exactly the same ...
