@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; // This now works because of the Import Map!
 
 export default function StatsCards({ packs }) {
   const totalPacks = packs.length;
