@@ -1,14 +1,9 @@
 {
   "cleanUrls": true,
-  "headers": [
-    {
-      "source": "/(.*).(ts|tsx)",
-      "headers": [
-        { "key": "Content-Type", "value": "text/javascript" }
-      ]
-    }
-  ],
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    {
+      "source": "/((?!api/|.*\\..*).*)",
+      "destination": "/index.html"
+    }
   ]
 }
