@@ -5,6 +5,8 @@ import { exportToCSV, generateId, getStatusBadgeClass } from './utils/helpers.js
 import StatsCards from './components/StatsCards.js';
 import PackFormModal from './components/PackFormModal.js';
 
+// ... rest of your code ...
+
 // ... rest of your App code remains exactly the same ...
 const App = () => {
   const [packs, setPacks] = useState(() => {
