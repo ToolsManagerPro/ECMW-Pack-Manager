@@ -22,6 +22,16 @@
 <body class="bg-slate-50">
     <div id="root"></div>
 
-    <script type="text/babel" data-presets="react" data-type="module" src="./index.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel" data-presets="react">
+        // We import from a direct URL so the browser never gets confused
+        import React from 'https://esm.sh/react@18.2.0';
+        import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
+        import App from './App.tsx';
+
+        const root = createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
 </body>
 </html>
