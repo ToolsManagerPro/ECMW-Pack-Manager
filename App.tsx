@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React from 'react'; // This now works because of the Import Map!
 // IMPORTANT: Notice the .ts and .tsx extensions below
 import { INITIAL_DATA, ENTITY_OPTIONS, STATUS_OPTIONS } from './constants.ts';
 import { generateId, getStatusBadgeClass } from './utils/helpers.ts';
