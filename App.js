@@ -1,4 +1,5 @@
-import React from 'react'; // This now works because of the Import Map!
+import React, { useState, useEffect } from 'https://esm.sh/react@18.2.0';
+// No more "react" bare specifier, we use the full URL.
 // IMPORTANT: Notice the .ts and .tsx extensions below
 import { INITIAL_DATA, ENTITY_OPTIONS, STATUS_OPTIONS } from './constants.ts';
 import { generateId, getStatusBadgeClass } from './utils/helpers.ts';
