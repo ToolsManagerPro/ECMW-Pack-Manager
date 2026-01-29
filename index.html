@@ -12,13 +12,16 @@
 <body class="bg-slate-50">
     <div id="root"></div>
 
-    <script type="text/babel" data-type="module">
-        import React from 'https://esm.sh/react@18.2.0';
-        import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
-        import App from './App.js';
+<script type="text/babel" data-type="module" src="./App.js"></script>
 
-        const root = createRoot(document.getElementById('root'));
-        root.render(<App />);
-    </script>
+<script type="text/babel" data-type="module">
+    import React from 'https://esm.sh/react@18.2.0';
+    import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
+    // We don't import App here because the script tag above loads it into Babel's scope
+    import App from './App.js'; 
+
+    const root = createRoot(document.getElementById('root'));
+    root.render(<App />);
+</script>
 </body>
 </html>
