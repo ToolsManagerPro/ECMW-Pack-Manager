@@ -1,10 +1,11 @@
 // App.js
-import React, { useState, useMemo, useEffect } from 'https://esm.sh/react@18.2.0';
+import React, { useState, useMemo, useEffect } from 'react';
 import { INITIAL_DATA, ENTITY_OPTIONS, STATUS_OPTIONS, PLATFORM_OPTIONS, TEAM_OPTIONS, LOCATION_OPTIONS, DISK_OPTIONS, DATA_SEEDS_OPTIONS } from './constants.js';
 import { exportToCSV, generateId, getStatusBadgeClass } from './utils/helpers.js';
 import StatsCards from './components/StatsCards.js';
 import PackFormModal from './components/PackFormModal.js';
 
+// ... rest of your App code remains exactly the same ...
 const App = () => {
   const [packs, setPacks] = useState(() => {
     const saved = localStorage.getItem('ecmw_packs');
