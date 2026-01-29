@@ -1,32 +1,51 @@
-import React from 'react'; // This now works because of the Import Map!
+import React from 'https://esm.sh/react@18.2.0';
 
-export default function StatsCards({ packs }) {
-  const totalPacks = packs.length;
-  const totalProfiles = packs.reduce((acc, p) => acc + (parseInt(p.countProfiles) || 0), 0);
-  const issues = packs.filter(p => {
-    const s = (p.status || '').toLowerCase();
-    return s.includes('down') || s.includes('hold');
-  }).length;
-
+const StatsCards = ({ packs }) => {
   const stats = [
-    { label: 'Total Packs', value: totalPacks, icon: 'fa-box', color: 'text-blue-600', bg: 'bg-blue-50' },
-    { label: 'Active Profiles', value: totalProfiles.toLocaleString(), icon: 'fa-users', color: 'text-indigo-600', bg: 'bg-indigo-50' },
-    { label: 'System Issues', value: issues, icon: 'fa-triangle-exclamation', color: 'text-rose-600', bg: 'bg-rose-50' }
+    { 
+      label: 'Total Packs', 
+      value: packs.length, 
+      icon: 'fa-box', 
+      color: 'blue' 
+    },
+    { 
+      label: 'Active Prod', 
+      value: packs.filter(p => p.status === 'Active').length, 
+      icon: 'fa-check-circle', 
+      color: 'green' 
+    },
+    { 
+      label: 'In Testing', 
+      value: packs.filter(p => p.status === 'Testing').length, 
+      icon: 'fa-vial', 
+      color: 'amber' 
+    },
+    { 
+      label: 'Teams', 
+      value: new Set(packs.map(p => p.team)).size, 
+      icon: 'fa-users', 
+      color: 'indigo' 
+    }
   ];
 
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-      {stats.map((s, i) => (
-        <div key={i} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-5">
-          <div className={`w-12 h-12 ${s.bg} ${s.color} rounded-xl flex items-center justify-center text-lg`}>
-            <i className={`fas ${s.icon}`}></i>
-          </div>
-          <div>
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{s.label}</p>
-            <p className="text-2xl font-black text-slate-800">{s.value}</p>
-          </div>
-        </div>
-      ))}
-    </div>
+  return React.createElement('div', { className: "grid grid-cols-1 md:grid-cols-4 gap-4 mb-8" },
+    stats.map((stat) => 
+      React.createElement('div', { 
+        key: stat.label, 
+        className: "bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow" 
+      },
+        React.createElement('div', { className: "flex items-center justify-between" },
+          React.createElement('div', null,
+            React.createElement('p', { className: "text-sm font-medium text-slate-500 mb-1" }, stat.label),
+            React.createElement('h3', { className: "text-2xl font-bold text-slate-800" }, stat.value)
+          ),
+          React.createElement('div', { className: `bg-${stat.color}-50 p-3 rounded-xl` },
+            React.createElement('i', { className: `fas ${stat.icon} text-${stat.color}-600 text-xl` })
+          )
+        )
+      )
+    )
   );
-}
+};
+
+export default StatsCards;
