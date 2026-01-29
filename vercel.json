@@ -1,9 +1,10 @@
 {
+  "cleanUrls": true,
   "headers": [
     {
-      "source": "/(.*)\\.(ts|tsx)",
+      "source": "/(.*).(ts|tsx)",
       "headers": [
-        { "key": "Content-Type", "value": "application/javascript" }
+        { "key": "Content-Type", "value": "text/javascript" }
       ]
     }
   ],
