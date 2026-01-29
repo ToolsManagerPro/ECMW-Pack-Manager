@@ -1,4 +1,14 @@
-import React, { useState, useEffect } from 'https://esm.sh/react@18.2.0';
+// components/StatsCards.js
+import React from 'https://esm.sh/react@18.2.0';
+
+export default function StatsCards({ packs }) {
+  // Your component logic...
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+      {/* ... */}
+    </div>
+  );
+}
 
 const StatsCards = ({ packs = [] }) => {
   const totalPacks = packs.length;
