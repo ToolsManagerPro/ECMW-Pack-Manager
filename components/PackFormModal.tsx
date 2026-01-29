@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; // This now works because of the Import Map!
 import { STATUS_OPTIONS, ENTITY_OPTIONS, PLATFORM_OPTIONS, TEAM_OPTIONS } from '../constants.ts';
 
 export default function PackFormModal({ isOpen, onClose, onSubmit, initialData }) {
