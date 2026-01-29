@@ -1,5 +1,5 @@
 
-import React from 'https://esm.sh/react@18.2.0';
+import React, { useState, useEffect } from 'https://esm.sh/react@18.2.0';
 import { ENTITY_OPTIONS, PLATFORM_OPTIONS, TEAM_OPTIONS, STATUS_OPTIONS, LOCATION_OPTIONS, DISK_OPTIONS, DATA_SEEDS_OPTIONS, BROWSER_OPTIONS } from '../constants.js';
 
 // ... rest of the component code ...
