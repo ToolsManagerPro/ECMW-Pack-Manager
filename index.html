@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ECMW FLEET</title>
-    <link rel="icon" href="data:,">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -13,13 +12,14 @@
     <div id="root"></div>
 
     <script type="text/babel" data-type="module">
-        // We use full URLs here because we aren't using a build tool like Vite yet
-        import React from 'https://esm.sh/react@18.2.0';
+        import React, { useState, useMemo, useEffect } from 'https://esm.sh/react@18.2.0';
         import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
-        import App from './App.js';
-
-        const root = createRoot(document.getElementById('root'));
-        root.render(<App />);
+        
+        // IMPORTANT: We are going to import the code but we need Babel to see it
+        // If App.js is outside, the browser fails. 
+        // For now, let's make sure your App.js is being treated as a Babel script.
     </script>
+
+    <script type="text/babel" src="./App.js" data-type="module"></script>
 </body>
 </html>
